@@ -1,7 +1,7 @@
 <?php
 session_start();
 //session_destroy();
-//require_once 'db.php';
+require_once 'db.php';
 
 //var_dump($_SESSION);
 
@@ -19,24 +19,10 @@ function getCities(){
     return $cities;
 }
 
-function findAnswer($selected){
+function getAnswer($session, $post){
 
-    $letters = array('ь','ъ','Ы');
-    $last_letter = mb_substr($selected,-1,1,'utf-8');
-    echo $last_letter;
+    $first_letter = mb_substr($post,1,1,'utf-8');
 
-    if (in_array($last_letter, $letters)){
-        $last_letter = mb_substr($selected,-1,1,'utf-8');
-    }
-
-    $link = mysqli_connect('192.168.100.100','root','KcR33sQjTAwagKh','easycode') or die('Connection error');
-    $result = mysqli_query($link,'SELECT * FROM `towns` WHERE LOWER(city) LIKE LOWER("'.$last_letter.'%")');
-    $city = mysqli_fetch_assoc($result);
-
-    return $city;
-}
-
-function deleteTown($session, $post){
     if (isset($_POST['enter'])){
         $selected = $post;
 
@@ -49,6 +35,31 @@ function deleteTown($session, $post){
     return $new_session;
 }
 
+
+function findAnswer($selected){
+
+    $letters = array('ь','ъ','ы');
+    $last_letter = mb_substr($selected,-1,1,'utf-8');
+    echo $last_letter;
+
+    if (in_array($last_letter, $letters)){
+        $last_letter = mb_substr($selected,-2,1,'utf-8');
+    }
+
+    $link = mysqli_connect('192.168.100.100','root','KcR33sQjTAwagKh','easycode') or die('Connection error');
+    $result = mysqli_query($link,'SELECT * FROM `towns` WHERE LOWER(city) LIKE LOWER("'.$last_letter.'%")');
+    $city = mysqli_fetch_assoc($result);
+
+    var_dump($city);
+
+    return $city;
+}
+
+
+
+
+
+
 if($_SESSION['start'] != 'start' || empty($_SESSION['cities'])){
     $_SESSION['start'] = 'start';
     $_SESSION['cities'] = getCities();
@@ -56,7 +67,7 @@ if($_SESSION['start'] != 'start' || empty($_SESSION['cities'])){
 
 if ($_POST['enter']){
 
-    $variable = deleteTown($_SESSION['cities'],$_POST['city']);
+    $variable = getAnswer($_SESSION['cities'],$_POST['city']);
 //  var_dump($variable); echo '<br />';
     $_SESSION['cities'] = $variable;
 //    var_dump($_SESSION['cities']);
@@ -72,7 +83,6 @@ if ($_POST['enter']){
 <body>
 <div style="background: lightgray; margin: 0 auto; width: 400px; padding: 20px;">
     <form method="post" action="">
-        <p><?php if($_POST['enter']) echo findAnswer($_POST['city'])?></p>
         <p>
             <label> Select City <select name="city">
                     <?php
@@ -82,6 +92,7 @@ if ($_POST['enter']){
                     ?>
                 </select></label>
         </p>
+        <p><?php if($_POST['enter']) echo findAnswer($_POST['city'])?></p>
         <p>
             <input type="submit" name="enter" value="Select"/>
         </p>

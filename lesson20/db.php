@@ -19,7 +19,7 @@
         }
 
         public function sql($query) {
-            //echo($query);
+
             $result = mysqli_query($this->connection,$query) ;
             if(!$result) {
                 die("Ошибка запроса: ".mysqli_error($this->connection)) ;
