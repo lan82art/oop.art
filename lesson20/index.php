@@ -3,8 +3,6 @@ session_start();
 //session_destroy();
 require_once 'db.php';
 
-//var_dump($_SESSION);
-
 function getCities(){
 
     $link = mysqli_connect('192.168.100.100','root','KcR33sQjTAwagKh','easycode') or die('Connection error');
@@ -16,46 +14,54 @@ function getCities(){
     while ($cit[]=mysqli_fetch_assoc($result)){
         $cities = $cit;
     }
+    mysqli_close($link);
     return $cities;
 }
 
 function getAnswer($session, $post){
 
-    $first_letter = mb_substr($post,1,1,'utf-8');
-
-    if (isset($_POST['enter'])){
-        $selected = $post;
+    //$first_letter = mb_substr($post,1,1,'utf-8');
 
         foreach ($session as $value){
-            if($value['id'] != $selected){
+            if($value['id'] != $post){
                 $new_session[] = $value;
             }
         }
-    }
     return $new_session;
 }
 
 
-function findAnswer($selected){
+function findAnswer($session, $selected){
 
     $letters = array('ь','ъ','ы');
-    $last_letter = mb_substr($selected,-1,1,'utf-8');
-    echo $last_letter;
+
+    echo $selected.'<br />';
+
+    foreach ($session as $value){
+        if($value['id'] == $selected){
+            $word = $value['city'];
+        }
+    }
+
+    echo $word;
+
+    $last_letter = mb_substr($word,-1,1,'utf-8');
 
     if (in_array($last_letter, $letters)){
-        $last_letter = mb_substr($selected,-2,1,'utf-8');
+        $last_letter = mb_substr($word,-2,1,'utf-8');
     }
 
     $link = mysqli_connect('192.168.100.100','root','KcR33sQjTAwagKh','easycode') or die('Connection error');
-    $result = mysqli_query($link,'SELECT * FROM `towns` WHERE LOWER(city) LIKE LOWER("'.$last_letter.'%")');
-    $city = mysqli_fetch_assoc($result);
+    $sql = 'SELECT * FROM `towns` WHERE LOWER(city) LIKE LOWER("'.$last_letter.'%")';
 
-    var_dump($city);
+    $result = mysqli_query($link,$sql);
+    $answer_city = mysqli_fetch_assoc($result);
 
-    return $city;
+    mysqli_close($link);
+    echo $answer_city['city'];
+
+    return $answer_city;
 }
-
-
 
 
 
@@ -65,12 +71,15 @@ if($_SESSION['start'] != 'start' || empty($_SESSION['cities'])){
     $_SESSION['cities'] = getCities();
 }
 
+
 if ($_POST['enter']){
 
-    $variable = getAnswer($_SESSION['cities'],$_POST['city']);
+    $answer = findAnswer($_SESSION['cities'], $_POST['city']);
+
+    $variable = getAnswer($_SESSION['cities'], $_POST['city']);
 //  var_dump($variable); echo '<br />';
     $_SESSION['cities'] = $variable;
-//    var_dump($_SESSION['cities']);
+    //var_dump($_SESSION['cities']);
 }
 
 ?>
@@ -92,7 +101,7 @@ if ($_POST['enter']){
                     ?>
                 </select></label>
         </p>
-        <p><?php if($_POST['enter']) echo findAnswer($_POST['city'])?></p>
+        <p><?php if($_POST['enter']) echo 'Ответ: '. $answer; ?></p>
         <p>
             <input type="submit" name="enter" value="Select"/>
         </p>
