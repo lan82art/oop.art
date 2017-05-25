@@ -60,8 +60,6 @@ class Validation {
         $selectedCity = $this->getCityName($session,$answer);
         $first_letter = $this->findFirstLetter($selectedCity);
 
-        echo $selectedCity.'<br />'; echo $first_letter.'<br />'; echo $_SESSION['last_letter'].'<br />';
-
         if((!empty($_SESSION['last_letter']))) {
             if ($first_letter == $_SESSION['last_letter']) {
                 $_SESSION['last_letter'] = $this->findLastLetter($selectedCity);

@@ -52,7 +52,6 @@ if(isset($_POST['enter'])){
             <input type="submit" name="enter" value="Select"/>
         </p>
     </form>
-        <p><?php echo $_SESSION['last_letter']?></p>
     <?php } else {?><p><?php echo $_SESSION['error'];?></p><?php }?>
     <p><?php  if (isset($_POST['enter'])) echo $answer['city']; ?></p>
     <form name="reset_form" method="post" action="reset.php">
