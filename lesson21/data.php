@@ -3,7 +3,7 @@ require_once 'classes.php';
 
 $publications = array();
 
-$link = mysqli_connect('localhost', 'root', 'Creation', 'easycode');
+$link = mysqli_connect('localhost', 'root', '', 'easycode');
 
 mysqli_query($link,"SET NAMES utf8");
 

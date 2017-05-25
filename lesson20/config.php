@@ -3,9 +3,9 @@
         function __construct() {
             $this->APP_PATH = dirname(dirname(__FILE__)) ;
         }
-        public $APP_PATH ;
-        public $DB_HOST    = "192.168.100.100" ;
-        public $DB_USER    = "root" ;
-        public $DB_PASS    = "KcR33sQjTAwagKh" ;
-        public $DB_NAME    = "easycode" ;
+        protected $APP_PATH ;
+        protected $DB_HOST    = "localhost" ;
+        protected $DB_USER    = "root" ;
+        protected $DB_PASS    = "" ;
+        protected $DB_NAME    = "easycode" ;
     }
