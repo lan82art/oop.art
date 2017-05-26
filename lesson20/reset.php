@@ -1,6 +1,6 @@
 <?php
 session_start();
-session_destroy();
+//session_destroy();
 if(isset($_POST['reset'])){
     unset ($_SESSION['start']);
     unset ($_SESSION['last_letter']);
