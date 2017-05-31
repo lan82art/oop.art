@@ -1,6 +1,11 @@
 <?php
 require_once 'classes.php';
+
 $form = new Form();
+$error = array();
+$select = array('one','two','three');
+
+require_once 'validator.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,27 +16,19 @@ $form = new Form();
 </head>
 <body>
 
-<?php
+<div style="margin: 0 auto; width: 500px;">
+<?php echo $form->beginForm('myform','"validator.php"','post');?>
 
-if($_POST['enter']){
-    $validator = new Validate();
+<p> <?php echo $form->input('email','text'); if(isset($error['error']['email'])){ echo $error['error']['email']; } else echo'&nbsp;'; echo '';?></p>
+<p> <?php echo $form->input('text','text'); if(isset($error['error']['text'])){ echo $error['error']['text']; } else echo'&nbsp;'; echo '';?></p>
+<p> <?php echo $form->input('number','text'); if(isset($error['error']['number'])){ echo $error['error']['number']; } else echo'&nbsp;'; echo ''; ?></p>
+<p> <?php echo $form->select('select1',$select); ?></p>
+<p> <?php echo $form->textarea('input3','oieuroiqeroiejrt'); ?></p>
+<p> <?php echo $form->input('enter','submit'); ?></p>
 
-    if ($validator->valid('email',$_POST['email'])){
-        echo 'Email is valid';
-    } else echo 'Email invalid';
-}
+    <?php echo $form->endForm();?>
 
-$select = array('one','two','three');
-
-echo $form->beginForm('myform','""','post');
-echo $form->input('email','text').'<br />';
-echo $form->input('input2','textarea').'<br />';
-echo $form->select('select1',$select).'<br />';
-echo $form->input('input3','textarea','oieuroiqeroiejrt').'<br />';
-echo $form->input('enter','submit');
-echo $form->endForm();
-
-?>
+</div>
 
 </body>
 </html>

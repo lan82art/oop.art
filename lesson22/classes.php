@@ -21,6 +21,15 @@ class Form {
         return '<input name ="'.$name.'" type="'.$type.'" value="'.$value.'"/>';
         }
     }
+
+    public function textarea($name,$value){
+        if($value != ''){
+            return '<textarea name ="'.$name.'">'.$value.'</textarea>';
+        } else {
+            return '<textarea name ="'.$name.'"></textarea>';
+        }
+
+    }
     public function select($name, $values){
         $select = '<select>';
         foreach ($values as $value){
@@ -37,34 +46,30 @@ class Form {
 class Validate {
 
     protected $charset = 'utf8';
+    protected $types = array('email','text','number');
 
     public function valid($type, $value){
-        switch ($type){
-            case 'email':
-                return $this->email($value);
-            case 'text':
-                return $this->text($value);
-            case 'number':
-                return $this->number($value);
-            default: $this->def();
-        }
+        if (!empty($value) && in_array($type,$this->types)) {
+            return $this->$type($value);
+        } else return false;
     }
 
     protected function email($value){
-        $dog_quantity = mb_substr_count(trim($value), '@', $this->charset);
+            $dog_quantity = mb_substr_count(trim($value), '@', $this->charset);
 
-        if ($dog_quantity == 1) {
-            return true;
-        } else {
-           return false;
-        }
+            if ($dog_quantity == 1) {
+                return true;
+            } else {
+                return false;
+            }
     }
 
     protected function text($value){
-        $len = iconv_strlen(trim($value), $this->charset);
-        if ($len < 4 || $len > 20) {
+        $str_len = mb_strlen($value,$this->charset);
+        if ($str_len > 4 && $str_len < 20) {
+            return true;
+        } else
             return false;
-        }
     }
 
     protected function number($value){
@@ -73,9 +78,5 @@ class Validate {
         } else {
             return false;
         }
-    }
-
-    protected function def(){
-        return 'Enter correct type';
     }
 }

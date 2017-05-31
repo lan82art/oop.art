@@ -6,7 +6,6 @@ require_once 'classes.php';
 $cityList = new City();
 $validate = new Validation();
 
-
 if($_SESSION['start'] != 'start' || empty($_SESSION['cities'])) {
 
     $_SESSION['start'] = 'start';
@@ -14,21 +13,14 @@ if($_SESSION['start'] != 'start' || empty($_SESSION['cities'])) {
 }
 
 if(isset($_POST['enter'])){
-
     if($validate->validateAnswer($_SESSION['cities'],$_POST['city'])){
-
         $cityList->deleteCity($_SESSION['cities'],$_POST['city']);
-
         $answer = $validate->findAnswer($_SESSION['cities'],$_SESSION['last_letter']);
             if (!empty($answer)){
-
                 $cityList->deleteCity($_SESSION['cities'],$answer['id']);
-
             } else {$_SESSION['error'] = 'Вы победили';}
-
     } else {$_SESSION['error'] = 'Вы проиграли';}
 }
-
 ?>
 <!DOCTYPE html>
 <html>
