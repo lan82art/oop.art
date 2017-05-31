@@ -5,5 +5,5 @@ if(isset($_POST['reset'])){
     unset ($_SESSION['start']);
     unset ($_SESSION['last_letter']);
     unset ($_SESSION['error']);
-    header('Location:classes.php');
+    header('Location:index.php');
 }
