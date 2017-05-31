@@ -8,8 +8,18 @@
  *
  * Итог: Нужно создать абсолютно любую форму используя лишьметоды и валидировать ее передавая
  * лишь параметры валидации.*/
+class BaseForm {
+    public $types = array('email','text','number');
+}
 
-class Form {
+class Form extends BaseForm {
+
+    public function selectField($type){
+        if (in_array($type,$this->types)) {
+            return $this->$type();
+        } else return false;
+
+    }
 
     public function beginForm($name, $action, $method){
         return '<form name="'.$name.'" action="'.$action.'" method="'.$method.'">';
@@ -43,10 +53,10 @@ class Form {
     }
 
 }
-class Validate {
+class Validate extends BaseForm {
 
     protected $charset = 'utf8';
-    protected $types = array('email','text','number');
+
 
     public function valid($type, $value){
         if (!empty($value) && in_array($type,$this->types)) {
