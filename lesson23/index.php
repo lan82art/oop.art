@@ -95,7 +95,7 @@ class Datawork{
         $arr = array(
             'year' => ($secs / 31556926) + 1970,
             'month' => ($secs / 2629743) % 12 + 1,
-            'week' => ($secs / 604800) % 53,
+            'week' => ($secs / 604800) % 52.,
             'day'  => ($secs / 86400) % 7,
             'hour' => ($secs / 3600) % 24,
             'minute' => ($secs / 60) % 60,
@@ -107,12 +107,12 @@ class Datawork{
     function time_arr($secs){
 
         $arr = array(
-            'year' => $secs / 31556926,  //31536000
-            'month' => $secs / 2629743 % 12, //2628000
-            'week' => $secs / 604800 % 53,
-            'day'  => $secs / 86400 % 7,
-            'hour' => $secs / 3600 % 24,
-            'minute' => $secs / 60 % 60,
+            'year' => ($secs / 31556926),  //31536000
+            'month' => ($secs / 2629743) % 12, //2628000
+            'week' => ($secs / 604800) % 52,
+            'day'  => ($secs / 86400) % 7,
+            'hour' => ($secs / 3600) % 24,
+            'minute' => ($secs / 60) % 60,
             'second' => $secs % 60
         );
         return $arr;
@@ -129,8 +129,8 @@ echo $dat = $data->convert('02/03/2016').'<br />';
 echo $dat = $data->convert('2016.03.02').'<br />';
 echo $dat = $data->convert('2016-03-02').'<br />';
 echo $dat = $data->convert('2016/03/02').'<br />';
-
-$datasec = $data ->time_elapsed('1497010141');
+echo '<br />';
+$datasec = $data ->time_elapsed('1497014042');
 echo 'year '.   (int)$datasec['year'].'<br />';
 echo 'month '.  (int)$datasec['month'].'<br />';
 echo 'week '.   (int)$datasec['week'].'<br />';
@@ -139,7 +139,7 @@ echo 'hour '.   (int)$datasec['hour'].'<br />';
 echo 'minute '. (int)$datasec['minute'].'<br />';
 echo 'seconds '.(int)$datasec['seconds'].'<br />';
 
-$dataarr = $data->time_arr($data->datediff('2014-03-03','03.04.2017'));
+$dataarr = $data->time_arr($data->datediff('2014-03-03','06.04.2017'));
 echo '<br/>';
 echo 'year '.   (int)$dataarr['year'].'<br />';
 echo 'month '.  (int)$dataarr['month'].'<br />';
