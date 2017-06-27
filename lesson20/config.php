@@ -6,6 +6,6 @@
         protected $APP_PATH ;
         protected $DB_HOST    = "localhost" ;
         protected $DB_USER    = "root" ;
-        protected $DB_PASS    = "" ;
+        protected $DB_PASS    = "Creation" ;
         protected $DB_NAME    = "easycode" ;
     }

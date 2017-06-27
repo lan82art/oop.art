@@ -1,0 +1,81 @@
+#modal_form{
+    width: 350px;
+    height:270px;
+    border-radius: 5px;
+    border: 5px solid #1BBB34;
+    background: #fff;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -150px;
+    display: none;
+    opacity:0;
+    z-index: 1120;
+    padding: 20px 10px;
+}
+#modal_form #modal_close{
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: block;
+}
+#overlay {
+    z-index: 1110;
+    position: fixed;
+    background-color: #000;
+    opacity: 0.8;
+    width: 100%;
+
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    display: none;
+}
+.qwe{
+    display:block;
+    font-size: 17px;
+    margin-top: -10px;
+    margin-left: 5px;
+    font-family: "Droid Sans", sans-serif;
+    text-transform: uppercase;
+}
+.bor {
+    border-top: 1px solid #1BBB34;
+    width: 150px;
+}
+.q-obr {
+    margin: 50px auto;
+    width: 230px;
+}
+.inp2 {
+    width: 225px;
+    height: 30px;
+    border-radius: 0px;
+    background:  white;
+    font-size: 15px;
+    padding: 2px;
+}
+#otpr {
+    margin: 0px auto;
+    display: block;
+    width: 180px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: "Droid Sans", sans-serif;
+}
+.inp2{
+    height:40px !important;
+    font-size: 15px !important;
+}
+#otpr23 {
+    cursor: pointer;
+}
