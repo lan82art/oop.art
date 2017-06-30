@@ -36,7 +36,7 @@ jQuery(document).ready(function () {
         var gender = jQuery('input[name="gender"]:checked').val();
         if(login.length >=4){
             jQuery('#error').html('');
-        }  else {
+        }  else {``
             jQuery('#error').html('<p style="color: red;">WrongLogin</p>');
         }
         if(gender){
